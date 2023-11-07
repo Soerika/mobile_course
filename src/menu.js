@@ -29,7 +29,7 @@ const Menu = ({ navigation }) => {
                   <TouchableOpacity>
                     <View style={styles.linearGradient}>
                       <Text style={styles.catName}>
-                        {'Category ' + (index + 1)}
+                        {'danh mục ' + (index + 1)}
                       </Text>
                     </View>
                   </TouchableOpacity>
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#009FFD',
+    backgroundColor: '#006A42',
     marginBottom: 10
   },
   catName: {
@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
     },
     btn: {
-    backgroundColor: '#009FFD',
+    backgroundColor: '#006A42',
     borderRadius: 5,
     marginHorizontal: 10,
     marginTop: 10,
