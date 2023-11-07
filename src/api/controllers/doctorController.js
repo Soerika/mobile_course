@@ -2,9 +2,9 @@ const Doctor = require('../models/doctor');
 
 class DoctorController {
     // GET /
-    index(req, res) {
+    index(req, res, next) {
         Doctor.find({})
-            .then(doctors => res.json(doctors))
+            .then(doctors => res.status(200).json(doctors))
             .catch(next);
     }
 
