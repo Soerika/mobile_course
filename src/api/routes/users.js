@@ -26,18 +26,4 @@ router.get('/:id', userController.show);
  */
 router.get('/', userController.index);
 
-/**
- * @swagger
- * /users/login:
- *    post:
- */
-router.post('/login', userController.login);
-
-/**
- * @swagger
- * /users/sign-up:
- *    post:
- */
-router.post('/sign-up', userController.signUp);
-
 module.exports = router

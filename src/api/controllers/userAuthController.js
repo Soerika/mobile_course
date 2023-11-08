@@ -1,18 +1,32 @@
 require('dotenv').config();
 
+User = require('../models/user');
+
 const jwt = require('jsonwebtoken');
+const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
 
 class userAuthController {
-    login(res, req) {
-        const username = req.body.username;
-
+    login(req, res, next) {
+        const email = req.body.username;
+        const password = req.body.password;
         
-        jwt.sign()
-
+        User.find({
+            "email": email,
+            "password": password
+        }).then(() => {
+            const user = {
+                email: email,
+                password: password,
+            }
+            const accessToken = jwt.sign(user, accessTokenSecret);
+            res.status(200).json({ accessToken: accessToken });
+        }).catch(next);
     }
 
-    refresh(res, req) {
-
+    refresh(req, res, next) {
+        res.status(200).json({
+            "refresh": "refresh"
+        })
     }
 }
 

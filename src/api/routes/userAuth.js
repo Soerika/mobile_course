@@ -3,18 +3,20 @@ const router = express.Router();
 
 const userAuthController = require('../controllers/userAuthController');
 
+const authenticateMiddleware = require('../middlewares/authenticate');
+
 /**
  * @swagger
- * /users/:
+ * /authentication/login:
  *    POST:
  */
 router.post('/login', userAuthController.login);
 
 /**
  * @swagger
- * /users/:
+ * /authentication/refresh:
  *    POST:
  */
-router.post('/refresh', userAuthController.refresh);
+// router.post('/refresh', authenticateMiddleware.authenticateToken, userAuthController.refresh);
 
 module.exports = router

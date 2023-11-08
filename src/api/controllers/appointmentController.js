@@ -4,7 +4,9 @@ const Appointment = require('../models/appointment.js');
 class AppointmentController {
     // GET /
     index(req, res, next) {
-        Appointment.find({})
+        const userId = req.params.userId;
+
+        Appointment.find({ "user": { _id:userId }} ).limit(10)
             .then(appointments => res.json(appointments))
             .catch(next);
     }
