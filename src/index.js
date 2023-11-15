@@ -11,8 +11,8 @@ const app = express();
 app.use(morgan('combined'));
 
 // connect to database
-// db.connectServer();
-db.connectLocal();
+db.connectServer();
+// db.connectLocal();
 
 // middleware
 app.use(express.json());

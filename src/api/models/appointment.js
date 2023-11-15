@@ -7,6 +7,10 @@ const appoinmentSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
+    doctorId: {
+        type: Schema.Types.ObjectId,
+        ref: 'Doctor'
+    },
     startTime: {
         type: Date,
     },
@@ -18,7 +22,7 @@ const appoinmentSchema = new Schema({
         enum: ['pending', 'booked', 'canceled'],
         default: 'booked',
     },
-    price: {
+    fee: {
         type: Number,
         require: true,
         default: 200,

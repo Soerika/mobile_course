@@ -48,10 +48,7 @@ class AppointmentController {
 
     // PUT /:id
     put (req, res, next) {
-        Appointment.updateOne({ _id: req.params.id }, {
-            "status": req.body.status,
-            "startTime": req.body.startTime,
-        })
+        Appointment.updateOne({ _id: req.params.id }, req.body)
             .then((appointment) => res.status(200).send(appointment))
             .catch(next);
     }

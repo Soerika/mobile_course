@@ -20,7 +20,7 @@ const doctorSchema = new mongoose.Schema({
     rating: {
         type: Number,
         default: 5,
-    }
+    },
 });
 
 module.exports = mongoose.model('Doctor', doctorSchema);

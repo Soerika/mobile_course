@@ -13,18 +13,21 @@ class userAuthController {
         User.findOne({
             "email": req.body.email,
             "password": req.body.password,
-        }).exec().then((user) => {
-            if (!user) {
-                res.status(400).json({ message: "user not found" });
-                return next();
-            }
-            const userInfo = {
-                email: req.body.email,
-                password: req.body.password,
-            }
-            const accessToken = jwt.sign(userInfo, accessTokenSecret);
-            res.status(200).json({ accessToken: accessToken });
-        }).catch(next);
+        })
+            .exec()
+            .then((user) => {
+                if (!user) {
+                    res.status(400).json({ message: "user not found" });
+                    return next();
+                }
+                const userInfo = {
+                    email: req.body.email,
+                    password: req.body.password,
+                }
+                const accessToken = jwt.sign(userInfo, accessTokenSecret);
+                res.status(200).json({ accessToken: accessToken });
+            })
+            .catch(next);
     }
 
     signup(req, res, next) {
