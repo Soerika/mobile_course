@@ -15,14 +15,14 @@ router.get('/search', appointmentController.search);
  * /appointments/:id:
  *    get:
  */
-router.get('/:id', appointmentController.show);
+router.get('/:id', appointmentController.index);
 
 /**
  * @swagger
  * /appointments/:
  *    get:
  */
-router.get('/', appointmentController.index);
+// router.get('/', appointmentController.index);
 
 /**
  * @swagger
@@ -34,8 +34,8 @@ router.post('/:id', appointmentController.post);
 /**
  * @swagger
  * /appointments/:
- *    post:
+ *    put:
  */
-router.put('/', appointmentController.put);
+router.put('/:id', appointmentController.put);
 
 module.exports = router

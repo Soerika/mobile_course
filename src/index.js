@@ -11,8 +11,8 @@ const app = express();
 app.use(morgan('combined'));
 
 // connect to database
-db.connectServer();
-// db.connectLocal();
+// db.connectServer();
+db.connectLocal();
 
 // middleware
 app.use(express.json());
@@ -26,7 +26,7 @@ app.use(
 swaggerConfig(app);
 route(app);
 
-const port = process.env.PORT || 9001;
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Example app listening on http://localhost:${port}`)
 });

@@ -4,7 +4,7 @@ class UserController {
     // GET /
     index(req, res, next) {
         User.find({})
-            .then(users => res.status.json(users))
+            .then(users => res.status(200).json(users))
             .catch(next);
     }
 

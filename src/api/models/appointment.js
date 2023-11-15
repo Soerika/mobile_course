@@ -18,6 +18,11 @@ const appoinmentSchema = new Schema({
         enum: ['pending', 'booked', 'canceled'],
         default: 'booked',
     },
+    price: {
+        type: Number,
+        require: true,
+        default: 200,
+    }
 });
 
 module.exports = mongoose.model('Appointment', appoinmentSchema);
