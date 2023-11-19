@@ -19,13 +19,6 @@ router.get('/:id', appointmentController.index);
 
 /**
  * @swagger
- * /appointments/:
- *    get:
- */
-// router.get('/', appointmentController.index);
-
-/**
- * @swagger
  * /appointments/:id:
  *    post:
  */
