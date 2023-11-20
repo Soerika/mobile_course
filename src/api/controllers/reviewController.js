@@ -16,7 +16,6 @@ class ReviewController {
             .limit(10)
             .exec()
             .then((reviews) => {
-                console.log(reviews);
                 res.status(200).json(reviews)
             })
             .catch(next);

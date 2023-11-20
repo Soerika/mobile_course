@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const userController = require('../controllers/userController');
+const { authenticateToken } = require('../middlewares/authenticate');
 
 /**
  * @swagger
@@ -9,7 +10,7 @@ const userController = require('../controllers/userController');
  *    get:
  *      description: Returns all users
  */
-router.get('/search', userController.search);
+router.get('/search', authenticateToken, userController.search);
 
 /**
  * @swagger
@@ -17,13 +18,13 @@ router.get('/search', userController.search);
  *    get:
  *      description:
  */
-router.get('/:id', userController.show);
+router.get('/:id', authenticateToken, userController.show);
 
 /**
  * @swagger
  * /users/:
  *    get:
  */
-router.get('/', userController.index);
+router.get('/', authenticateToken, userController.index);
 
 module.exports = router

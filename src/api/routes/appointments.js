@@ -2,13 +2,14 @@ const express = require('express');
 const router = express.Router();
 
 const appointmentController = require('../controllers/appointmentController');
+const { authenticateToken } = require('../middlewares/authenticate');
 
 /**
  * @swagger
  * /appointments/search:
  *    get:
  */
-router.get('/search', appointmentController.search);
+router.get('/search', authenticateToken, appointmentController.search);
 
 /**
  * @swagger

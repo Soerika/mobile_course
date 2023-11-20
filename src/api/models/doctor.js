@@ -9,6 +9,10 @@ const doctorSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    gender: {
+        type: Boolean,
+        required: true,
+    },
     firstName: {
         type: String,
         required: true,
@@ -29,6 +33,9 @@ const doctorSchema = new mongoose.Schema({
         type: Number,
         default: 5,
     },
+    icon: {
+        
+    }
 });
 
 module.exports = mongoose.model('Doctor', doctorSchema);
