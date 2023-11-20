@@ -6,24 +6,45 @@ const { authenticateToken } = require('../middlewares/authenticate');
 
 /**
  * @swagger
- * /users/search:
+ * /user/search:
  *    get:
- *      description: Returns all users
+ *     summary: search for users
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *     responses:
+ *       200:
+ *         content:
+ *           application/json:
+ *             schema:
  */
 router.get('/search', authenticateToken, userController.search);
 
 /**
  * @swagger
- * /users/:id:
+ * /user/:id:
  *    get:
- *      description:
+ *     summary: get a user
+ *     responses:
+ *       200:
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Book'
  */
 router.get('/:id', authenticateToken, userController.show);
 
 /**
  * @swagger
- * /users/:
+ * /users:
  *    get:
+ *     summary: get all users
+ *     responses:
+ *       200:
+ *         content:
+ *           application/json:
  */
 router.get('/', authenticateToken, userController.index);
 

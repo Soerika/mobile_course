@@ -5,7 +5,28 @@ const specializationController = require('../controllers/specializationControlle
 
 router.get('/:slug', specializationController.get);
 
-
+/**
+ * @swagger
+ * /specialization:
+ *    get:
+ *     summary: get all specialization
+ *     responses:
+ *       200:
+ *         content:
+ *           application/json:
+ */
 router.get('/', specializationController.index);
+
+/**
+ * @swagger
+ * /specialization/:slug:
+ *    get:
+ *     summary: get a specialization
+ *     responses:
+ *       200:
+ *         content:
+ *           application/json:
+ */
+router.get('/', specializationController.get);
 
 module.exports = router
