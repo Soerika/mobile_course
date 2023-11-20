@@ -22,7 +22,7 @@ const doctorSchema = new mongoose.Schema({
         required: true,
     },
     specialization: {
-        type: String,
+        type: [String],
         required: true,
     },
     description: {
@@ -33,8 +33,9 @@ const doctorSchema = new mongoose.Schema({
         type: Number,
         default: 5,
     },
-    icon: {
-        
+    address: {
+        type: String,
+        required: true
     }
 });
 

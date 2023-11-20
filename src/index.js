@@ -21,6 +21,8 @@ app.use(
         extended: true
     }),
 );
+app.use(express.static('public'));
+app.set('view engine', 'ejs');
 
 // routes
 swaggerConfig(app);
