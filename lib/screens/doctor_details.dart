@@ -5,8 +5,7 @@ import 'package:healthcare_app/utils/config.dart';
 import '../components/custom_appbar.dart';
 
 class DoctorDetails extends StatefulWidget {
-  const DoctorDetails({Key? key})
-      : super(key: key);
+  const DoctorDetails({Key? key}) : super(key: key);
   // final Map<String, dynamic> doctor;
   // final bool isFav;
 
@@ -137,7 +136,7 @@ class AboutDoctor extends StatelessWidget {
           SizedBox(
             width: Config.widthSize * 0.75,
             child: const Text(
-              'MBBS (International Medical University, Malaysia), MRCP (Royal College of Physicians, United Kingdom)',
+              'BBS (International Medical University, Malaysia), MRCP (Royal College of Physicians, United Kingdom)M',
               style: TextStyle(
                 color: Colors.grey,
                 fontSize: 15,
@@ -150,7 +149,7 @@ class AboutDoctor extends StatelessWidget {
           SizedBox(
             width: Config.widthSize * 0.75,
             child: const Text(
-              'Sarawak General Hospital',
+              'VietDuc Hospital',
               style: TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
@@ -180,9 +179,9 @@ class DetailBody extends StatelessWidget {
         children: <Widget>[
           Config.spaceSmall,
           const DoctorInfo(
-            // patients: doctor['patients'],
-            // exp: doctor['experience'],
-          ),
+              // patients: doctor['patients'],
+              // exp: doctor['experience'],
+              ),
           Config.spaceMedium,
           const Text(
             'About Doctor',
@@ -205,8 +204,7 @@ class DetailBody extends StatelessWidget {
 }
 
 class DoctorInfo extends StatelessWidget {
-  const DoctorInfo({Key? key})
-      : super(key: key);
+  const DoctorInfo({Key? key}) : super(key: key);
 
   // final int patients;
   // final int exp;

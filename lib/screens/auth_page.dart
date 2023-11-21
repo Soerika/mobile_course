@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:healthcare_app/components/login_form.dart';
+import 'package:healthcare_app/screens/register_form.dart';
 import 'package:healthcare_app/components/social_button.dart';
 import 'package:healthcare_app/utils/text.dart';
 
@@ -49,26 +50,27 @@ class _AuthPageState extends State<AuthPage> {
                 fontWeight: FontWeight.bold,
               ),
             ),
+
             Config.spaceSmall,
             // isSignIn ? LoginForm() : SignUpForm(),
             const LoginForm(),
             Config.spaceSmall,
             // isSignIn
             //     ? Center(
-              Center(
-                    child: TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        AppText.enText['forgot-password']!,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
+            Center(
+              child: TextButton(
+                onPressed: () {},
+                child: Text(
+                  AppText.enText['forgot-password']!,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
                   ),
-                // : Container(),
+                ),
+              ),
+            ),
+            // : Container(),
             const Spacer(),
             Center(
               child: Text(

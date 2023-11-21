@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:healthcare_app/components/button.dart';
 import 'package:healthcare_app/main.dart';
@@ -67,13 +65,20 @@ class _LoginFormState extends State<LoginForm> {
           ),
           Config.spaceSmall,
           Button(
-            width: double.infinity, 
-            title: 'Sign In', 
-            onPressed: () {
-              Navigator.of(context).pushNamed('main');
-            }, 
-            disable: false
-          )
+              width: double.infinity,
+              title: 'Sign In',
+              onPressed: () {
+                Navigator.of(context).pushNamed('main');
+              },
+              disable: false),
+          Config.spaceSmall,
+          Button(
+              width: double.infinity,
+              title: 'sign Up',
+              onPressed: () {
+                Navigator.of(context).pushNamed('main');
+              },
+              disable: false)
           // Consumer<AuthModel>(
           //   builder: (context, auth, child) {
           //     return Button(

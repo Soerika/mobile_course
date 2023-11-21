@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:healthcare_app/screens/appointment_page.dart';
+import 'package:healthcare_app/screens/changepass_page.dart';
+import 'package:healthcare_app/screens/chatting_page.dart';
+import 'package:healthcare_app/screens/fav_page.dart';
 import 'package:healthcare_app/screens/home_page.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
+import 'package:healthcare_app/screens/medicalrecord_page.dart';
+import 'package:healthcare_app/screens/profile_page.dart';
+import 'package:healthcare_app/screens/success_booked.dart';
 
 class MainLayout extends StatefulWidget {
-  const MainLayout({Key? key}) : super(key : key);
+  const MainLayout({Key? key}) : super(key: key);
 
   @override
-  State<MainLayout> createState() =>  _MainLayoutState();
+  State<MainLayout> createState() => _MainLayoutState();
 }
 
-class  _MainLayoutState extends State<MainLayout> {
+class _MainLayoutState extends State<MainLayout> {
   // variable declaration
   int currentPage = 0;
   final PageController _page = PageController();
@@ -26,9 +31,14 @@ class  _MainLayoutState extends State<MainLayout> {
             currentPage = value;
           });
         }),
-        children: const <Widget>[
-          HomePage(),
-          AppointmentPage(),
+        children: <Widget>[
+          const HomePage(),
+          const AppointmentPage(),
+          ChatPage(),
+          FavPage(),
+          ProfilePage(),
+          ChangePasswordPage(),
+          MedicalRecordScreen(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -52,9 +62,20 @@ class  _MainLayoutState extends State<MainLayout> {
             icon: FaIcon(FontAwesomeIcons.solidCalendarCheck),
             label: 'Appointments',
           ),
+          BottomNavigationBarItem(
+            icon: FaIcon(FontAwesomeIcons.message),
+            label: 'Chatting',
+          ),
+          BottomNavigationBarItem(
+            icon: FaIcon(FontAwesomeIcons.heart),
+            label: 'Favourite',
+          ),
+          BottomNavigationBarItem(
+            icon: FaIcon(FontAwesomeIcons.solidUser),
+            label: 'Profile',
+          ),
         ],
       ),
     );
   }
 }
-

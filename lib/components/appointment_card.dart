@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:healthcare_app/utils/config.dart';
+import 'package:lottie/lottie.dart';
 
 class AppointmentCard extends StatefulWidget {
-  AppointmentCard({Key? key})
-      : super(key: key);
+  AppointmentCard({Key? key}) : super(key: key);
 
   // final Map<String, dynamic> doctor;
   // final Color color;
@@ -31,8 +31,7 @@ class _AppointmentCardState extends State<AppointmentCard> {
               const Row(
                 children: [
                   CircleAvatar(
-                    backgroundImage: 
-                    AssetImage('assets/doctor_1.jpg'),
+                    backgroundImage: AssetImage('assets/doctor_4.jpg'),
                     // backgroundImage: NetworkImage(
                     //     "http://127.0.0.1:8000${widget.doctor['doctor_profile']}"), //insert doctor profile
                   ),
@@ -45,7 +44,7 @@ class _AppointmentCardState extends State<AppointmentCard> {
                     children: <Widget>[
                       Text(
                         // 'Dr ${widget.doctor['doctor_name']}',
-                        'Dr Richard Tan',
+                        'Dr Hong Trang',
                         style: TextStyle(color: Colors.white),
                       ),
                       SizedBox(
@@ -63,8 +62,8 @@ class _AppointmentCardState extends State<AppointmentCard> {
               Config.spaceSmall,
               //Schedule info here
               const ScheduleCard(
-                // appointment: widget.doctor['appointments'],
-              ),
+                  // appointment: widget.doctor['appointments'],
+                  ),
               Config.spaceSmall,
               //action button
               Row(
@@ -144,7 +143,14 @@ class _AppointmentCardState extends State<AppointmentCard> {
                         'Completed',
                         style: TextStyle(color: Colors.white),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  ThankYouScreen()), // Thay 'ThankYouScreen()' bằng tên màn hình "Thank You" thực tế của bạn
+                        );
+                      },
                     ),
                   ),
                 ],
@@ -155,6 +161,33 @@ class _AppointmentCardState extends State<AppointmentCard> {
       ),
     );
   }
+}
+
+ThankYouScreen() {
+  return Scaffold(
+    body: SafeArea(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Expanded(
+            flex: 3,
+            child: Lottie.asset('assets/success.json'),
+          ),
+          Container(
+            width: double.infinity,
+            alignment: Alignment.center,
+            child: const Text(
+              'Thankiu',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
 }
 
 //Schedule Widget
@@ -183,7 +216,7 @@ class ScheduleCard extends StatelessWidget {
             width: 5,
           ),
           Text(
-            // 
+            //
             'Monday, 11/28/2022',
             style: TextStyle(color: Colors.white),
           ),

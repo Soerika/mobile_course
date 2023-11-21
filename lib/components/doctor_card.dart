@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:healthcare_app/utils/config.dart';
 
 class DoctorCard extends StatelessWidget {
-  const DoctorCard({
-    Key? key, required this.route
-  }) : super(key: key);
+  const DoctorCard({Key? key, required this.route}) : super(key: key);
 
   final String route;
 
@@ -25,16 +23,16 @@ class DoctorCard extends StatelessWidget {
             children: [
               SizedBox(
                 width: Config.widthSize * 0.33,
-                child: Image.asset('assets/doctor_2.jpg',
-                // child: Image.network(
-                //   "http://127.0.0.1:8000${doctor['doctor_profile']}",
+                child: Image.asset(
+                  'assets/doctor_2.jpg',
+                  // child: Image.network(
+                  //   "http://127.0.0.1:8000${doctor['doctor_profile']}",
                   fit: BoxFit.fill,
                 ),
               ),
               const Flexible(
                 child: Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[

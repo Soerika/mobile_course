@@ -16,28 +16,28 @@ class _AppointmentPageState extends State<AppointmentPage> {
   Alignment _alignment = Alignment.centerLeft;
   List<dynamic> schedules = [
     {
-      "doctor_name":"Richard Tan",
-      "doctor_profile":"assets/doctor_2.jpg",
-      "category":"Dental",
-      "status":FilterStatus.upcoming,
+      "doctor_name": "Richard Tan",
+      "doctor_profile": "assets/doctor_2.jpg",
+      "category": "Dental",
+      "status": FilterStatus.upcoming,
     },
     {
-      "doctor_name":"Max Lim",
-      "doctor_profile":"assets/doctor_3.jpg",
-      "category":"Cardiology",
-      "status":FilterStatus.complete,
+      "doctor_name": "Max Lim",
+      "doctor_profile": "assets/doctor_3.jpg",
+      "category": "Cardiology",
+      "status": FilterStatus.complete,
     },
     {
-      "doctor_name":"Jane Wong",
-      "doctor_profile":"assets/doctor_4.jpg",
-      "category":"Respiration",
-      "status":FilterStatus.complete,
+      "doctor_name": "Hong Trang",
+      "doctor_profile": "assets/doctor_4.jpg",
+      "category": "Dental",
+      "status": FilterStatus.complete,
     },
     {
-      "doctor_name":"Jenny Song",
-      "doctor_profile":"assets/doctor_5.jpg",
-      "category":"General",
-      "status":FilterStatus.cancel,
+      "doctor_name": "Jenny Song",
+      "doctor_profile": "assets/doctor_1.jpg",
+      "category": "General",
+      "status": FilterStatus.cancel,
     },
   ];
 
@@ -179,8 +179,8 @@ class _AppointmentPageState extends State<AppointmentPage> {
                           Row(
                             children: [
                               CircleAvatar(
-                                backgroundImage: 
-                                  AssetImage(schedule['doctor_profile']),
+                                backgroundImage:
+                                    AssetImage(schedule['doctor_profile']),
                                 // backgroundImage: NetworkImage(
                                 //     "http://127.0.0.1:8000${schedule['doctor_profile']}"),
                               ),
@@ -216,10 +216,10 @@ class _AppointmentPageState extends State<AppointmentPage> {
                             height: 15,
                           ),
                           const ScheduleCard(
-                            // date: schedule['date'],
-                            // day: schedule['day'],
-                            // time: schedule['time'],
-                          ),
+                              // date: schedule['date'],
+                              // day: schedule['day'],
+                              // time: schedule['time'],
+                              ),
                           const SizedBox(
                             height: 15,
                           ),
@@ -268,9 +268,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
 }
 
 class ScheduleCard extends StatelessWidget {
-  const ScheduleCard(
-      {Key? key})
-      : super(key: key);
+  const ScheduleCard({Key? key}) : super(key: key);
   // final String date;
   // final String day;
   // final String time;
