@@ -25,27 +25,30 @@ class userAuthController {
             const doctor = results[1] //// second call in Promise.all
             if(user) {
                 const userInfo = {
+                    _id: user._id,
                     email: req.body.email,
                     password: req.body.password,
                 }
-
                 const accessToken = jwt.sign(userInfo, accessTokenSecret);
-                return res.status(200).json({ accessToken: accessToken });
+                // return res.status(200).json({ accessToken: accessToken });
+                return res.status(200).json({_id: user._id});
             }
 
             else if(doctor) {
                 console.log('doctor login');
                 const doctorInfo = {
+                    _id: doctor._id,
                     email: req.body.email,
                     password: req.body.password,
                 }
 
                 const accessToken = jwt.sign(doctorInfo, accessTokenSecret);
-                return res.status(200).json({ accessToken: accessToken });
+                // return res.status(200).json({ accessToken: accessToken });
+                return res.status(200).json({_id: doctor._id});
             }
 
             return res.status(404).json({
-                msg: 'not found'
+                msg: 'user or doctor not found'
             })
             })
          .catch(errors=>{
@@ -75,6 +78,7 @@ class userAuthController {
                 newUser.save();
 
                 const userInfo = {
+                    _id: req.body.id,
                     email: req.body.email,
                     password: req.body.password,
                 }

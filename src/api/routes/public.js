@@ -27,7 +27,7 @@ router.get('/icons/:slug', publicController.icon);
  *         content:
  *           application/json:
  */
-router.get('/avatar/:id', publicController.avatar);
+router.get('/avatars/:id', publicController.avatar);
 
 /**
  * @swagger
@@ -39,6 +39,6 @@ router.get('/avatar/:id', publicController.avatar);
  *         content:
  *           application/json:
  */
-router.put('/avatar/:id', upload.single('image'), publicController.updateAvatar);
+router.put('/avatars/:id', upload.single('image'), publicController.updateAvatar);
 
 module.exports = router;

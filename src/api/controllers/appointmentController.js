@@ -3,10 +3,17 @@ const Appointment = require('../models/appointment.js');
 
 class AppointmentController {
     // GET /:id
-    index(req, res, next) {
+    indexUser(req, res, next) {
         const userId = req.params.id;
-        console.log(userId);
-        Appointment.find({ "user": { _id:userId }} ).limit(10)
+        Appointment.find({ userId: { _id:userId }} ).limit(10)
+            .then(appointments => res.status(200).json(appointments))
+            .catch(next);
+    }
+
+    // GET /:id
+    indexDoctor(req, res, next) {
+        const userId = req.params.id;
+        Appointment.find({ doctorId: { _id:userId }} ).limit(10)
             .then(appointments => res.status(200).json(appointments))
             .catch(next);
     }
@@ -25,20 +32,14 @@ class AppointmentController {
             .catch(next);
     }
 
-    // POST /:id
+    // POST /
     post(req, res) {
         console.log(req.body)
 
-        const appointment = new Appointment({
-            userId :{
-                _id: new mongoose.Types.ObjectId(req.params.id),
-            },
-            startTime: req.body.startTime,
-            endTime: req.body.endTime,
-        })
+        const newAppointment = new Appointment(req.body);
         try {
-            const newAppointment = appointment.save();
-            res.status(201).json(appointment);
+            newAppointment.save();
+            return res.status(201).json(newAppointment);
         } catch (err) {
             res.status(400).json({
                 message: err.message

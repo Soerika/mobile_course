@@ -19,7 +19,7 @@ const { authenticateToken } = require('../middlewares/authenticate');
  *         content:
  *           application/json:
  */
-router.get('/search', authenticateToken, appointmentController.search);
+router.get('/search', appointmentController.search);
 
 /**
  * @swagger
@@ -31,7 +31,19 @@ router.get('/search', authenticateToken, appointmentController.search);
  *         content:
  *           application/json:
  */
-router.get('/:id', appointmentController.index);
+router.get('/users/:id', appointmentController.indexUser);
+
+/**
+ * @swagger
+ * /appointments/:id:
+ *   get:
+ *     summary: look up all appointment base on user id
+ *     responses:
+ *       200:
+ *         content:
+ *           application/json:
+ */
+router.get('/doctors/:id', appointmentController.indexDoctor);
 
 /**
  * @swagger
@@ -43,7 +55,7 @@ router.get('/:id', appointmentController.index);
  *         content:
  *           application/json:
  */
-router.post('/:id', appointmentController.post);
+router.post('/', appointmentController.post);
 
 /**
  * @swagger
