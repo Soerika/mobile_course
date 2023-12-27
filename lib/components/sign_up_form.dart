@@ -1,7 +1,7 @@
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:healthcare_app/components/button.dart';
 import 'package:healthcare_app/main.dart';
 import 'package:healthcare_app/models/auth_model.dart';
 import 'package:healthcare_app/providers/dio_provider.dart';
@@ -9,20 +9,21 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../utils/config.dart';
+import 'button.dart';
 
-class LoginForm extends StatefulWidget {
-  const LoginForm({Key? key}) : super(key: key);
+class SignUpForm extends StatefulWidget {
+  SignUpForm({Key? key}) : super(key: key);
 
   @override
-  State<LoginForm> createState() => _LoginFormState();
+  State<SignUpForm> createState() => _SignUpFormState();
 }
 
-class _LoginFormState extends State<LoginForm> {
+class _SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
+  final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passController = TextEditingController();
   bool obsecurePass = true;
-
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -30,6 +31,19 @@ class _LoginFormState extends State<LoginForm> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
+          TextFormField(
+            controller: _nameController,
+            keyboardType: TextInputType.text,
+            cursorColor: Config.primaryColor,
+            decoration: const InputDecoration(
+              hintText: 'Username',
+              labelText: 'Username',
+              alignLabelWithHint: true,
+              prefixIcon: Icon(Icons.person_outlined),
+              prefixIconColor: Config.primaryColor,
+            ),
+          ),
+          Config.spaceSmall,
           TextFormField(
             controller: _emailController,
             keyboardType: TextInputType.emailAddress,
@@ -70,26 +84,26 @@ class _LoginFormState extends State<LoginForm> {
                             color: Config.primaryColor,
                           ))),
           ),
-          const SizedBox(height: 40,),
-
-
+          Config.spaceSmall,
           Consumer<AuthModel>(
             builder: (context, auth, child) {
-              return SizedBox(
-                height: 45,
-                child: Button(
-                  width: double.infinity,
-                  title: 'Sign In',
-                  onPressed: () async {
-                    //login here
+              return Button(
+                width: double.infinity,
+                title: 'Sign Up',
+                onPressed: () async {
+                  final userRegistration = await DioProvider().registerUser(
+                      _nameController.text,
+                      _emailController.text,
+                      _passController.text);
+
+                  if (userRegistration) {
                     final token = await DioProvider()
                         .getToken(_emailController.text, _passController.text);
+
+
                     if (token) {
-
-
-                      //grab user data here
                       final SharedPreferences prefs =
-                          await SharedPreferences.getInstance();
+                      await SharedPreferences.getInstance();
                       final tokenValue = prefs.getString('token') ?? '';
 
                       if (tokenValue.isNotEmpty && tokenValue != '') {
@@ -101,7 +115,6 @@ class _LoginFormState extends State<LoginForm> {
                             Map<String, dynamic> appointment = {};
                             final user = json.decode(response);
 
-
                             //check if any appointment today
                             for (var doctorData in user['doctor']) {
                               //if there is appointment return for today
@@ -112,15 +125,17 @@ class _LoginFormState extends State<LoginForm> {
                             }
                             Navigator.pop(context);
                             MyApp.navigatorKey.currentState!.pushNamed('main');
-                            // auth.setFavList(user['user_details']['fav'] as List<dynamic>);
-                            auth.loginSuccess(user, appointment);
+                            auth.loginSuccess(user, {});
+
                           });
                         }
                       }
                     }
-                  },
-                  disable: false,
-                ),
+                  } else {
+                    print('register not successful');
+                  }
+                },
+                disable: false,
               );
             },
           )
@@ -129,3 +144,5 @@ class _LoginFormState extends State<LoginForm> {
     );
   }
 }
+
+//now, let's get all doctor details and display on Mobile screen

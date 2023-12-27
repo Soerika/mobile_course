@@ -1,11 +1,12 @@
 import "package:healthcare_app/main.dart";
-import "package:healthcare_app/screens/auth_page.dart";
 import "package:healthcare_app/screens/changepass_page.dart";
 import "package:healthcare_app/screens/medicalrecord_page.dart";
 import 'package:healthcare_app/utils/config.dart';
 import "package:flutter/material.dart";
+import "package:provider/provider.dart";
 import "package:shared_preferences/shared_preferences.dart";
 
+import "../models/auth_model.dart";
 import "../providers/dio_provider.dart";
 
 class ProfilePage extends StatefulWidget {
@@ -16,8 +17,11 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  Map<String, dynamic> user = {};
+  
   @override
   Widget build(BuildContext context) {
+    user = Provider.of<AuthModel>(context, listen: false).getUser;
     return Column(
       children: [
         Expanded(
@@ -27,29 +31,29 @@ class _ProfilePageState extends State<ProfilePage> {
             color: Config.primaryColor,
             // ignore: prefer_const_constructors
             child: Column(
-              children: const <Widget>[
-                SizedBox(
+              children:  <Widget>[
+                const SizedBox(
                   height: 110,
                 ),
                 CircleAvatar(
                   radius: 65.0,
-                  backgroundImage: AssetImage('assets/profile1.jpg'),
+                  backgroundImage: NetworkImage(user['profile_photo_url']),
                   backgroundColor: Colors.white,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Text(
-                  'Test',
-                  style: TextStyle(
+                  user['name'],
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 20,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                Text(
+                const Text(
                   '20 Years Old | Female',
                   style: TextStyle(
                     color: Colors.white,
@@ -77,7 +81,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         const Text(
                           'Profile',
                           style: TextStyle(
-                            fontSize: 17,
+                            fontSize: 20,
                             fontWeight: FontWeight.w800,
                           ),
                         ),
@@ -88,7 +92,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Icon(
-                              Icons.account_box,
+                              Icons.settings,
                               color: Colors.blueAccent[400],
                               size: 35,
                             ),
@@ -107,7 +111,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               child: const Text(
                                 "Settings",
                                 style: TextStyle(
-                                  color: Config.primaryColor,
+                                  color: Colors.black,
                                   fontSize: 20,
                                 ),
                               ),
@@ -119,7 +123,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           children: [
                             Icon(
                               Icons.history,
-                              color: Colors.yellowAccent[400],
+                              color: Colors.blueAccent[400],
                               size: 35,
                             ),
                             const SizedBox(
@@ -137,7 +141,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               child: const Text(
                                 "History",
                                 style: TextStyle(
-                                  color: Config.primaryColor,
+                                  color: Colors.black,
                                   fontSize: 20,
                                 ),
                               ),
@@ -149,24 +153,36 @@ class _ProfilePageState extends State<ProfilePage> {
                           children: [
                             Icon(
                               Icons.logout,
-                              color: Colors.red[400],
+                              color: Colors.blueAccent[400],
                               size: 35,
                             ),
                             const SizedBox(
                               width: 20,
                             ),
                             TextButton(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => AuthPage()),
-                                );
+                              onPressed: () async {
+                                final SharedPreferences prefs =
+                                await SharedPreferences.getInstance();
+                                final token = prefs.getString('token') ?? '';
+
+                                if (token.isNotEmpty && token != '') {
+                                  final response =
+                                  await DioProvider().logout(token);
+
+                                  if (response == 200) {
+                                    await prefs.remove('token');
+                                    setState(() {
+                                      Provider.of<AuthModel>(context, listen: false).setFavList([]);
+                                      MyApp.navigatorKey.currentState!
+                                          .pushReplacementNamed('/');
+                                    });
+                                  }
+                                }
                               },
                               child: const Text(
                                 "Logout",
                                 style: TextStyle(
-                                  color: Config.primaryColor,
+                                  color: Colors.black,
                                   fontSize: 20,
                                 ),
                               ),

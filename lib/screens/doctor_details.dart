@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:healthcare_app/components/button.dart';
+import 'package:healthcare_app/models/auth_model.dart';
+import 'package:healthcare_app/providers/dio_provider.dart';
 import 'package:healthcare_app/utils/config.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../components/custom_appbar.dart';
 
 class DoctorDetails extends StatefulWidget {
-  const DoctorDetails({Key? key}) : super(key: key);
-  // final Map<String, dynamic> doctor;
-  // final bool isFav;
+  const DoctorDetails({Key? key, required this.doctor, required this.isFav}) : super(key: key);
+  final Map<String, dynamic> doctor;
+  final bool isFav;
 
   @override
   State<DoctorDetails> createState() => _DoctorDetailsState();
@@ -17,54 +21,53 @@ class _DoctorDetailsState extends State<DoctorDetails> {
   Map<String, dynamic> doctor = {};
   bool isFav = false;
 
-  // @override
-  // void initState() {
-  //   doctor = widget.doctor;
-  //   isFav = widget.isFav;
-  //   super.initState();
-  // }
+  @override
+  void initState() {
+    doctor = widget.doctor;
+    isFav = widget.isFav;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
         appTitle: 'Doctor Details',
-        icon: const FaIcon(Icons.arrow_back_ios),
+        icon: const FaIcon(Icons.arrow_back_ios_new),
         actions: [
           //Favarite Button
           IconButton(
             //press this button to add/remove favorite doctor
             onPressed: () async {
-              //get latest favorite list from auth model
-              // final list =
-              //     Provider.of<AuthModel>(context, listen: false).getFav;
+              // get latest favorite list from auth model
+              final list =
+                  Provider.of<AuthModel>(context, listen: false).getFav;
+              // if doc id is already exist, mean remove the doc id
+              if (list.contains(doctor['doc_id'])) {
+                list.removeWhere((id) => id == doctor['doc_id']);
+              } else {
+                //else, add new doctor to favorite list
+                list.add(doctor['doc_id']);
+              }
 
-              //if doc id is already exist, mean remove the doc id
-              // if (list.contains(doctor['doc_id'])) {
-              //   list.removeWhere((id) => id == doctor['doc_id']);
-              // } else {
-              //   //else, add new doctor to favorite list
-              //   list.add(doctor['doc_id']);
-              // }
+              // update the list into auth model and notify all widgets
+              Provider.of<AuthModel>(context, listen: false).setFavList(list);
 
-              //update the list into auth model and notify all widgets
-              // Provider.of<AuthModel>(context, listen: false).setFavList(list);
+              final SharedPreferences prefs =
+                  await SharedPreferences.getInstance();
+              final token = prefs.getString('token') ?? '';
 
-              // final SharedPreferences prefs =
-              //     await SharedPreferences.getInstance();
-              // final token = prefs.getString('token') ?? '';
+              if (token.isNotEmpty && token != '') {
+                //update the favorite list into database
+                final response = await DioProvider().storeFavDoc(token, list);
+                //if insert successfully, then change the favorite status
 
-              // if (token.isNotEmpty && token != '') {
-              //   //update the favorite list into database
-              //   final response = await DioProvider().storeFavDoc(token, list);
-              //   //if insert successfully, then change the favorite status
-
-              //   if (response == 200) {
-              //     setState(() {
-              //       isFav = !isFav;
-              //     });
-              //   }
-              // }
+                if (response == 200) {
+                  setState(() {
+                    isFav = !isFav;
+                  });
+                }
+              }
             },
             icon: FaIcon(
               isFav ? Icons.favorite_rounded : Icons.favorite_outline,
@@ -90,7 +93,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                 title: 'Book Appointment',
                 onPressed: () {
                   Navigator.of(context).pushNamed('booking_page',
-                      arguments: {"doctor_id": doctor['doc_id']});
+                      arguments: {"doctor_id": doctor['doc_id'],"doctor":doctor});
                 },
                 disable: false,
               ),
@@ -114,18 +117,16 @@ class AboutDoctor extends StatelessWidget {
       width: double.infinity,
       child: Column(
         children: <Widget>[
-          const CircleAvatar(
+           CircleAvatar(
             radius: 65.0,
-            backgroundImage: AssetImage('assets/doctor_2.jpg'),
-            // backgroundImage: NetworkImage(
-            //   "http://127.0.0.1:8000${doctor['doctor_profile']}",
-            // ),
+            backgroundImage: NetworkImage(
+              "${doctor['doctor_profile']}",
+            ),
             backgroundColor: Colors.white,
           ),
           Config.spaceMedium,
-          const Text(
-            // "Dr ${doctor['doctor_name']}",
-            'Dr Richard Tan',
+           Text(
+            "Dr ${doctor['doctor_name']}",
             style: TextStyle(
               color: Colors.black,
               fontSize: 24.0,
@@ -178,9 +179,9 @@ class DetailBody extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Config.spaceSmall,
-          const DoctorInfo(
-              // patients: doctor['patients'],
-              // exp: doctor['experience'],
+           DoctorInfo(
+              patients: doctor['patients'],
+              exp: doctor['experience'],
               ),
           Config.spaceMedium,
           const Text(
@@ -188,9 +189,9 @@ class DetailBody extends StatelessWidget {
             style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
           ),
           Config.spaceSmall,
-          const Text(
-            'Dr. Richard Tan is an experience Dentist Specialist at Sarawak, graduated since 2008, and completed his/her training at Sungai Buloh General Hospital.',
-            style: TextStyle(
+           Text(
+            'Dr. ${doctor['doctor_name']} is an experience ${doctor['category']} Specialist at Sarawak, graduated since 2008, and completed his/her training at Sungai Buloh General Hospital.',
+            style: const TextStyle(
               fontWeight: FontWeight.w500,
               height: 1.5,
             ),
@@ -204,30 +205,30 @@ class DetailBody extends StatelessWidget {
 }
 
 class DoctorInfo extends StatelessWidget {
-  const DoctorInfo({Key? key}) : super(key: key);
+  const DoctorInfo({Key? key, required this.patients, required this.exp}) : super(key: key);
 
-  // final int patients;
-  // final int exp;
+  final int patients;
+  final int exp;
 
   @override
   Widget build(BuildContext context) {
-    return const Row(
+    return  Row(
       children: <Widget>[
         InfoCard(
           label: 'Patients',
-          value: '109',
+          value: '${patients}',
         ),
-        SizedBox(
+        const SizedBox(
           width: 15,
         ),
         InfoCard(
           label: 'Experiences',
-          value: '10 years',
+          value: '${exp}',
         ),
-        SizedBox(
+        const SizedBox(
           width: 15,
         ),
-        InfoCard(
+        const InfoCard(
           label: 'Rating',
           value: '4.6',
         ),

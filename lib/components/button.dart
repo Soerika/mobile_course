@@ -28,6 +28,7 @@ class Button extends StatelessWidget {
         onPressed: disable ? null : onPressed,
         child: Text(
           title,
+          textAlign: TextAlign.center,
           style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,

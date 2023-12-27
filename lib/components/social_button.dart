@@ -11,14 +11,14 @@ class SocialButton extends StatelessWidget {
     Config().init(context);
     return OutlinedButton(
       style: OutlinedButton.styleFrom(
-        padding: const EdgeInsets.symmetric(vertical: 15),
+        padding: const EdgeInsets.symmetric(vertical: 12),
         side: const BorderSide(width: 1, color: Colors.black),
       ),
       onPressed: () {},
       child: SizedBox(
         width: Config.widthSize * 0.4,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Image.asset(
               'assets/$social.png',

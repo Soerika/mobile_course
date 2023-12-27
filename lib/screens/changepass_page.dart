@@ -11,63 +11,57 @@ class ChangePasswordPage extends StatefulWidget {
 class _ChangePasswordPage extends State<ChangePasswordPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Change Password'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Change Password',
-              style: TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.w800,
+    return GestureDetector(
+      onTap: ()=>FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text('Change Password'),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const SizedBox(height: 20),
+              TextFormField(
+                // Add properties for current password input
+                decoration: InputDecoration(
+                  labelText: 'Current Password',
+                  border: OutlineInputBorder(),
+                ),
+                obscureText: true, // Hide text for password input
+                // Add validation logic if needed
               ),
-            ),
-            const Divider(
-              color: Colors.grey,
-            ),
-            const SizedBox(height: 20),
-            TextFormField(
-              // Add properties for current password input
-              decoration: InputDecoration(
-                labelText: 'Current Password',
-                border: OutlineInputBorder(),
+              const SizedBox(height: 20),
+              TextFormField(
+                // Add properties for new password input
+                decoration: InputDecoration(
+                  labelText: 'New Password',
+                  border: OutlineInputBorder(),
+                ),
+                obscureText: true,
+                // Add validation logic if needed
               ),
-              obscureText: true, // Hide text for password input
-              // Add validation logic if needed
-            ),
-            const SizedBox(height: 20),
-            TextFormField(
-              // Add properties for new password input
-              decoration: InputDecoration(
-                labelText: 'New Password',
-                border: OutlineInputBorder(),
+              const SizedBox(height: 20),
+              TextFormField(
+                // Add properties for confirming new password input
+                decoration: InputDecoration(
+                  labelText: 'Confirm New Password',
+                  border: OutlineInputBorder(),
+                ),
+                obscureText: true,
+                // Add validation logic if needed
               ),
-              obscureText: true,
-              // Add validation logic if needed
-            ),
-            const SizedBox(height: 20),
-            TextFormField(
-              // Add properties for confirming new password input
-              decoration: InputDecoration(
-                labelText: 'Confirm New Password',
-                border: OutlineInputBorder(),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  // Add functionality to change password
+                },
+                child: const Text('Change Password'),
               ),
-              obscureText: true,
-              // Add validation logic if needed
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                // Add functionality to change password
-              },
-              child: const Text('Change Password'),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

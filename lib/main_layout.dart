@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:healthcare_app/screens/appointment_page.dart';
-import 'package:healthcare_app/screens/changepass_page.dart';
+import 'package:healthcare_app/screens/chat_screen.dart';
 import 'package:healthcare_app/screens/chatting_page.dart';
 import 'package:healthcare_app/screens/fav_page.dart';
 import 'package:healthcare_app/screens/home_page.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:healthcare_app/screens/medicalrecord_page.dart';
+import 'package:healthcare_app/screens/message_page/message_page.dart';
 import 'package:healthcare_app/screens/profile_page.dart';
-import 'package:healthcare_app/screens/success_booked.dart';
 
 class MainLayout extends StatefulWidget {
   const MainLayout({Key? key}) : super(key: key);
@@ -34,11 +33,10 @@ class _MainLayoutState extends State<MainLayout> {
         children: <Widget>[
           const HomePage(),
           const AppointmentPage(),
-          ChatPage(),
+          // const ChatPage(),
+          MessagePage(),
           FavPage(),
           ProfilePage(),
-          ChangePasswordPage(),
-          MedicalRecordScreen(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -46,10 +44,10 @@ class _MainLayoutState extends State<MainLayout> {
         onTap: (page) {
           setState(() {
             currentPage = page;
-            _page.animateToPage(
+            _page.jumpToPage(
               page,
-              duration: const Duration(milliseconds: 500),
-              curve: Curves.easeInOut,
+              // duration: const Duration(milliseconds: 500),
+              // curve: Curves.easeInOut,
             );
           });
         },

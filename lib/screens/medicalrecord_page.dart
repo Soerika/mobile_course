@@ -7,6 +7,7 @@ class MedicalRecordScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: const Text('Medical Record'),
         // Các actions nếu cần thiết
       ),
@@ -15,13 +16,6 @@ class MedicalRecordScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              'Medical History',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 24,
-              ),
-            ),
             const SizedBox(height: 10),
             Expanded(
               child: ListView.builder(
